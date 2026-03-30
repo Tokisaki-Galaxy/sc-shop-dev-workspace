@@ -1,1 +1,5 @@
+packages:
+  - 'sc-shop-backend'
+  - 'sc-shop-frontend'
+
 storeDir: /tmp/pnpm-store
