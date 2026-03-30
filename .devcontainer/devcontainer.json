@@ -1,0 +1,57 @@
+{
+  "name": "sc shop Dev Environment",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24",
+      "pnpmVersion": "latest"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2.5.7": {
+      "configureZshAsDefaultShell": true
+    },
+		"ghcr.io/devcontainers/features/python:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2.16.1": {},
+    "ghcr.io/devcontainers/features/copilot-cli:1": {}
+  },
+
+  "remoteEnv": {
+    "NODE_OPTIONS": "--max-old-space-size=4096",
+    "COPILOT_GITHUB_TOKEN": "${localEnv:COPILOT_PAT_MUZI}",
+    "MY_CUSTOM_ENV": "development"
+  },
+
+  "customizations": {
+    "codespaces": {
+      "repositories": {
+        "tokisaki-galaxy/sc-shop-frontend": { "permissions": "write-all" },
+        "tokisaki-galaxy/sc-shop-backend": { "permissions": "write-all" }
+      }
+    },
+
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "ckotzbauer.vscode-pg-client",  
+        "vscoderredis.redis",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
+    }
+  },
+
+  // 6. 自动化脚本 (Lifecycle Scripts)
+  // onCreateCommand: 容器第一次创建时运行（安装基础工具）
+  "onCreateCommand": "pnpm config set store-dir /home/codespace/.pnpm-store",
+
+  // postCreateCommand: 每次环境启动后运行（适合克隆额外的库）
+  "postCreateCommand": "",
+
+  // 7. 端口转发：让你的开发服务器（比如 3000 端口）能从公网访问
+  "forwardPorts": []
+}
